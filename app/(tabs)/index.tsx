@@ -1,74 +1,133 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { MessageSquare, MapPin, ThumbsUp, MessageCircle } from 'lucide-react-native';
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.profileImage} />
+        <Text style={styles.welcomeText}>
+          Good Afternoon, Welcome{'\n'}
+          <Text style={styles.citizenText}>Swachhata Citizen</Text>
+        </Text>
+      </View>
+
+      <View style={styles.complaintCard}>
+        <Text style={styles.complaintTitle}>Overflow of Sewerage or Storm Water reported</Text>
+        <Text style={styles.complaintId}>ID: W0210C28125506</Text>
+        <View style={styles.locationContainer}>
+          <MapPin size={16} color="#666" />
+          <Text style={styles.locationText}>
+            14, 2nd Main Road, Cholanayakanahalli, Bengaluru Urban, IN, India
+          </Text>
+        </View>
+        <TouchableOpacity style={styles.statusButton}>
+          <Text style={styles.statusButtonText}>View Status</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.actionGrid}>
+        <TouchableOpacity style={styles.actionItem}>
+          <MessageSquare size={24} color="#2B796C" />
+          <Text style={styles.actionText}>Post A{'\n'}Complaint</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionItem}>
+          <ThumbsUp size={24} color="#FF9800" />
+          <Text style={styles.actionText}>Rate Public{'\n'}Toilet</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionItem}>
+          <MapPin size={24} color="#4CAF50" />
+          <Text style={styles.actionText}>SBM Toilet{'\n'}Locator</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionItem}>
+          <MessageCircle size={24} color="#2B796C" />
+          <Text style={styles.actionText}>Provide{'\n'}Feedback</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    padding: 20,
+    backgroundColor: '#2B796C',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#fff',
+    marginRight: 15,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  welcomeText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  citizenText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  complaintCard: {
+    margin: 15,
+    padding: 15,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    elevation: 2,
+  },
+  complaintTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  complaintId: {
+    color: '#666',
+    marginVertical: 5,
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  locationText: {
+    marginLeft: 5,
+    color: '#666',
+    flex: 1,
+  },
+  statusButton: {
+    backgroundColor: '#2B796C',
+    padding: 8,
+    borderRadius: 5,
+    alignSelf: 'flex-end',
+    marginTop: 10,
+  },
+  statusButtonText: {
+    color: '#fff',
+  },
+  actionGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 10,
+  },
+  actionItem: {
+    width: '45%',
+    backgroundColor: '#fff',
+    margin: '2.5%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    elevation: 2,
+  },
+  actionText: {
+    marginTop: 10,
+    textAlign: 'center',
+    color: '#333',
   },
 });

@@ -1,43 +1,41 @@
 import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Chrome as Home, Calendar, CircleAlert as AlertCircle, User } from 'lucide-react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
+        tabBarStyle: { backgroundColor: '#fff' },
+        tabBarActiveTintColor: '#2B796C',
+        headerStyle: { backgroundColor: '#2B796C' },
+        headerTintColor: '#fff'
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="events"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Events',
+          tabBarIcon: ({ color, size }) => <Calendar size={size} color={color} />
+        }}
+      />
+      <Tabs.Screen
+        name="complaints"
+        options={{
+          title: 'Complaints',
+          tabBarIcon: ({ color, size }) => <AlertCircle size={size} color={color} />
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => <User size={size} color={color} />
         }}
       />
     </Tabs>
